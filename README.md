@@ -26,7 +26,7 @@ from flask import Flask
 app = Flask(__name__)
 
 # flask中路由定义,定义用户的访问路径
-@app.route('/')
+@app.route('/index')
 def index():
     return "<h1> this is my first app </h1>"
 
@@ -46,6 +46,14 @@ def show(name,age):
     age += 1 # age 是 int,直接运算
     return "this is register page,name is %s,age is %d."%(name, age)
 
+# 多 URL 的路由匹配,允许在一个视图处理函数中设置多个url路由规则
+@app.route('/')
+@app.route('/index_page')
+@app.route('/<int:page>')
+def index_page(page=None):
+    if page is None:
+        page = 1
+    return "<h1> 这是首页 ......,page is %d </h1>" %page
 
 
 if __name__ == '__main__':
