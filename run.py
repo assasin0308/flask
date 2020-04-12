@@ -9,6 +9,15 @@ app = Flask(__name__)
 def index():
     return "<h1> this is my first app </h1>"
 
+# 带参数的路由
+@app.route('/login/<name>') # 参数名称用 <>包裹
+def login(name): # 形参与路由参数名称保持一致
+    return 'this is login page,name is %s ' %name
+
+@app.route('/register')
+def register():
+    return "this is register page"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
