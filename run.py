@@ -54,10 +54,6 @@ def url_show():
 
 # url_for('static',filename='style.css') # 用于静态文件反向解析
 
-# template 模板
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)  # 启动服务,默认端口 5000
