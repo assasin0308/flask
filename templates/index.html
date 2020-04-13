@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>{{book_info.title}}</title>
     <style>
         .container{
             width: 90%;
@@ -17,11 +17,31 @@
 </head>
 <body>
 <div class="container">
-    <div class="title">我是index页面</div>
-    <div class="main">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet asperiores consequuntur delectus doloremque ducimus eaque impedit libero pariatur placeat qui quo quod repellendus,
-        sapiente sit, ullam velit vero voluptate?
+    <div class="title">{{book_info.title}}</div>
+    <div>
+        <h3>name is: {{name}}</h3>
+        <h3>age is: {{age}}</h3>
     </div>
+    <h3>书名:{{book_info.book_name}}</h3>
+    <h3>作者:{{book_info.author}}</h3>
+    <h3>价格:{{book_info.price}}</h3>
+    <h3>出版社:{{book_info.publisher}}</h3>
+    <!--获取列表中第二个元素-->
+    <h3>list[1]:  {{book_info.list[1]}}  或者   {{book_info.list.1}}</h3>
+    <!--获取元组中第三个元素-->
+    <h3>tup[2]: {{book_info.tup[2]}}  或者 {{book_info.tup.2}}</h3>
+    <!--获取字典中键是WWc的值-->
+    <h3>dic['WWC']:   {{book_info.dic.WWC}}</h3>
+    <!--获取 per 对象的name属性值-->
+    <h3>per.name:   {{book_info.per.name}}</h3>
+    <!--调用 per 对象的say方法-->
+    <h3>per_say():   {{book_info.per.say()}} </h3>
+
+    <!--过滤器-->
+    <h3>{{book_info.uname}}</h3>
+    <h3>capitalize: {{book_info.uname|capitalize}}</h3>
+    <h3>upper: {{book_info.uname|upper}}</h3>
+    <h3>title: {{book_info.uname|title}}</h3>
 </div>
 </body>
 </html>

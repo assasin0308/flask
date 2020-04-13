@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
 ```
 
-## 4. 模板 templates
+## 4. templates 变量
 
 ```python
 from flask import Flask, render_template
@@ -100,21 +100,223 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+# templates 模板中的语法
+# 变量是一种特殊的占位符,在模板中: {{ 变量名 }}
+@app.route('/user')
+def user_list():
+    return render_template('index.html',name='assasin',age=52)
+
+# templates 传递 字典 & 列表 & 元祖
+@app.route('/book')
+def book_info():
+    # book_info = {
+    #     'title':'书籍信息',
+    #     'book_name':'钢铁是咋连城的',
+    #     'author':'奥斯特洛夫斯基',
+    #     'price':32.5,
+    #     'publisher':'北京大学出版社'
+    # }
+    # return render_template('index.html',book_info=book_info)
+    title = '书籍信息'
+    book_name = '钢铁是咋练成的'
+    author = '奥斯特洛夫斯基'
+    price = 32.5
+    publisher = '北京大学出版社'
+    # locals() 函数 将当前所在作用于中的局部变量封装为一个字典,
+    # 字典中的键是变量的值,值就是变量的值
+    list = [
+        '金毛狮王',
+        '青翼蝠王',
+        '紫衫龙王',
+        '白眉鹰王',
+    ]
+    tup = ('黎明','张学友','刘德华','郭富城')
+    dic = {
+        'W':'老魏',
+        'S':'史斌',
+        'WWC':'老王'
+    }
+    per = Person()
+    per.name = '漩涡鸣人' # 对象属性
+
+    # 过滤器 允许在变量输出之前改变变量的值
+    # 语法 {{变量|过滤器}}
+    # Jinjia2 支持的变量过滤器
+    # capitalize   首字符变大写,其他小写(英文)
+    # lower        将值转为小写再输出
+    # upper        将值转为大写再输出
+    # title       将值中的每个单词的首字母变大写
+    # trim        将值两端的空格去掉
+    uname = 'uzumaki naruto'
+    return render_template('index.html',book_info=locals())
+
+class Person(object):
+    name = None
+    def say(self):
+        return "hello i'm a person"
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5001,debug=True)
 ```
 
-## 5.
+```html
+# templates/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{book_info.title}}</title>
+    <style>
+        .container{
+            width: 90%;
+            margin: 0 auto;
+            color: blue;
+        }
+        .container .title{
+            color: aqua;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">{{book_info.title}}</div>
+    <div>
+        <h3>name is: {{name}}</h3>
+        <h3>age is: {{age}}</h3>
+    </div>
+    <h3>书名:{{book_info.book_name}}</h3>
+    <h3>作者:{{book_info.author}}</h3>
+    <h3>价格:{{book_info.price}}</h3>
+    <h3>出版社:{{book_info.publisher}}</h3>
+    <!--获取列表中第二个元素-->
+    <h3>list[1]:  {{book_info.list[1]}}  或者   {{book_info.list.1}}</h3>
+    <!--获取元组中第三个元素-->
+    <h3>tup[2]: {{book_info.tup[2]}}  或者 {{book_info.tup.2}}</h3>
+    <!--获取字典中键是WWc的值-->
+    <h3>dic['WWC']:   {{book_info.dic.WWC}}</h3>
+    <!--获取 per 对象的name属性值-->
+    <h3>per.name:   {{book_info.per.name}}</h3>
+    <!--调用 per 对象的say方法-->
+    <h3>per_say():   {{book_info.per.say()}} </h3>
+</div>
+</body>
+</html>
+```
+
+## 5. tempaltes 过滤器
+
+```html
+# 过滤器 允许在变量输出之前改变变量的值
+# 语法 {{变量|过滤器}}
+# Jinjia2 支持的变量过滤器
+# capitalize   首字符变大写,其他小写(英文)
+# lower        将值转为小写再输出
+# upper        将值转为大写再输出
+# title       将值中的每个单词的首字母变大写
+# trim        将值两端的空格去掉
+
+<!--过滤器-->
+<h3>{{book_info.uname}}</h3>
+<h3>capitalize: {{book_info.uname|capitalize}}</h3>
+<h3>upper: {{book_info.uname|upper}}</h3>
+<h3>title: {{book_info.uname|title}}</h3>
+```
+
+## 6. templates 流程控制
 
 ```python
+#demo.py
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def login():
+    return '首页登录'
+# 控制结构
+# 语法:
+# {% if 条件 %}
+# {% endif %}
+
+# {% if 条件 %}
+# 满足执行
+# {% else %}
+# 不满足执行
+# {% endif %}
+@app.route('/user_list')
+def user_list():
+    # uname = 'uzumaki naruto'
+    return render_template('demo.html',params=locals())
+
+# for循环
+# {% for 变量 in tuple|list|dic %}
+# {% endfor %}
+@app.route('/books')
+def book_list():
+    list = [
+        '金毛狮王',
+        '青翼蝠王',
+        '紫衫龙王',
+        '白眉鹰王',
+    ]
+    tup = ('黎明', '张学友', '刘德华', '郭富城')
+    dic = {
+        'W': '老魏',
+        'S': '史斌',
+        'WWC': '老王'
+    }
+    return render_template('demo.html',params=locals())
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',port=5002,debug=True)
 
 ```
 
-## 6.
+```html
+# demo.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>控制结构</title>
+</head>
+<body>
+<!--if-endif-->
+{% if params.uname %}
+<h1>欢迎:{{ params.uname }}</h1>
+{% endif %}
 
-```python
+<!--if-else-endif-->
+{% if params.uname %}
+<h1>欢迎:{{ params.uname }}</h1>
+{% else %}
+<a href="{{ url_for('login')}} ">登录首页去</a>
+{% endif %}
 
+<!--for-->
+<div style="font-size: 20px">
+    {% for str in params.list %}
+    <p>{{ str }}</p>
+    {% endfor %}
+</div>
+<ul>
+    {% for str in params.tup%}
+    <li>{{str}}</li>
+    {% endfor%}
+</ul>
+
+<div style="color: blue;">
+   {% for key,value  in params.dic.items() %}
+   <!--{% for key,value  in params.dic.keys() %}-->
+    <p>{{key}} : {{value}}</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
 ```
 
 ## 7.

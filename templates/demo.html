@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>控制结构</title>
+</head>
+<body>
+<!--if-endif-->
+{% if params.uname %}
+<h1>欢迎:{{ params.uname }}</h1>
+{% endif %}
+
+<!--if-else-endif-->
+{% if params.uname %}
+<h1>欢迎:{{ params.uname }}</h1>
+{% else %}
+<a href="{{ url_for('login')}} ">登录首页去</a>
+{% endif %}
+
+<!--for-->
+<div style="font-size: 20px">
+    {% for str in params.list %}
+    <p>{{ str }}</p>
+    {% endfor %}
+</div>
+<ul>
+    {% for str in params.tup%}
+    <li>{{str}}</li>
+    {% endfor%}
+</ul>
+
+<div style="color: blue;">
+   {% for key,value  in params.dic.items() %}
+   <!--{% for key,value  in params.dic.keys() %}-->
+    <p>{{key}} : {{value}}</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
