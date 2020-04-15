@@ -24,17 +24,41 @@
     {% endfor %}
 </div>
 <ul>
-    {% for str in params.tup%}
+    {% for str in params.tup %}
     <li>{{str}}</li>
-    {% endfor%}
+    {% endfor %}
 </ul>
 
 <div style="color: blue;">
    {% for key,value  in params.dic.items() %}
-   <!--{% for key,value  in params.dic.keys() %}-->
     <p>{{key}} : {{value}}</p>
     {% endfor %}
 </div>
 
+<!--声明一个宏-->
+{% macro show(name) %}
+<li style="color: blueviolet">{{name}}</li>
+{% endmacro %}
+<h2>使用宏显示数据</h2>
+<ul>
+    {% for name in params.list %}
+    {{ show(name) }}
+    {% endfor %}
+</ul>
+
+
+<h2>引入宏文件</h2>
+{% import 'macro.html' as macros %}
+<ul>
+    {% for str in params.tup %}
+    {{ macros.show_li(str) }}
+    {% endfor %}
+</ul>
+
+
+<!--包含模板文件-->
+{% include 'head.html' %}
+
+<div>自己的</div>
 </body>
 </html>

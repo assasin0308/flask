@@ -23,6 +23,27 @@ def user_list():
 # for循环
 # {% for 变量 in tuple|list|dic %}
 # {% endfor %}
+
+
+# 宏 {% macro %} 标签申明宏
+# {% macro show(str) %}
+#  <h1>{{ str }}</h1>
+# ......宏的内容
+# {% endmacro %}
+
+#...... 以上是声明,下边是调用
+# {{ show(uname) }}
+# 为方便重复使用,可将宏放在单独的模板文件
+# 1.创建 macro.html 模板文件
+# 2.在使用的网页中导入 macro.html
+# {% import  'macro.html' as macros %}
+#  {{ macros.show(name)}}
+
+
+
+# 模板包含 多处重复使用的模板代码
+# {% include 'xxx.html' %}
+
 @app.route('/books')
 def book_list():
     list = [
@@ -34,10 +55,10 @@ def book_list():
     tup = ('黎明', '张学友', '刘德华', '郭富城')
     dic = {
         'W': '老魏',
-        'S': '史斌',
+        'S': 'assasin',
         'WWC': '老王'
-    }
-    return render_template('demo.html',params=locals())
+     }
+    return render_template('demo.html',params=locals(),name='assasin')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5002,debug=True)

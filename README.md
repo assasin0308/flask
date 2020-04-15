@@ -254,6 +254,27 @@ def user_list():
 # for循环
 # {% for 变量 in tuple|list|dic %}
 # {% endfor %}
+
+
+# 宏 {% macro %} 标签申明宏
+# {% macro show(str) %}
+#  <h1>{{ str }}</h1>
+# ......宏的内容
+# {% endmacro %}
+
+#...... 以上是声明,下边是调用
+# {{ show(uname) }}
+# 为方便重复使用,可将宏放在单独的模板文件
+# 1.创建 macro.html 模板文件
+# 2.在使用的网页中导入 macro.html
+# {% import  'macro.html' as macros %}
+#  {{ macros.show(name)}}
+
+
+
+# 模板包含 多处重复使用的模板代码,被包含的模板也可以使用直接使用父级模板变量
+# {% include 'xxx.html' %}
+
 @app.route('/books')
 def book_list():
     list = [
@@ -267,11 +288,13 @@ def book_list():
         'W': '老魏',
         'S': '史斌',
         'WWC': '老王'
-    }
-    return render_template('demo.html',params=locals())
+     }
+    return render_template('demo.html',params=locals(),name='assasin')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5002,debug=True)
+
+
 
 ```
 
@@ -303,23 +326,91 @@ if __name__ == '__main__':
     {% endfor %}
 </div>
 <ul>
-    {% for str in params.tup%}
+    {% for str in params.tup %}
     <li>{{str}}</li>
-    {% endfor%}
+    {% endfor %}
 </ul>
 
 <div style="color: blue;">
    {% for key,value  in params.dic.items() %}
-   <!--{% for key,value  in params.dic.keys() %}-->
     <p>{{key}} : {{value}}</p>
     {% endfor %}
 </div>
 
+<!--声明一个宏-->
+{% macro show(name) %}
+<li style="color: blueviolet">{{name}}</li>
+{% endmacro %}
+<h2>使用宏显示数据</h2>
+<ul>
+    {% for name in params.list %}
+    {{ show(name) }}
+    {% endfor %}
+</ul>
+
+
+<h2>引入宏文件</h2>
+{% import 'macro.html' as macros %}
+<ul>
+    {% for str in params.tup %}
+    {{ macros.show_li(str) }}
+    {% endfor %}
+</ul>
+
+
+<!--包含模板文件-->
+{% include 'head.html' %}
+
+<div>自己的</div>
 </body>
 </html>
 ```
 
-## 7.
+```html
+# macro.html
+{% macro show_li(str) %}
+    <li>
+        <p style="font-size: 18px;">内容</p>
+        <span style="color: aqua"> {{ str }} </span>
+    </li>
+{% endmacro%}
+```
+
+```html
+# head.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>head</title>
+</head>
+<body>
+    <div class="container">
+        <div class="top">
+            <h2>网页头部</h2>
+        </div>
+        <div class="nav">
+            <ul>
+                <li>
+                    <a href="#">导航一</a>
+                </li>
+                <li>
+                    <a href="#">导航二</a>
+                </li>
+                <li>
+                    <a href="#">导航三</a>
+                </li>
+                <li>
+                    <a href="#">{{name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## 7. templates 静态文件
 
 ```python
 
