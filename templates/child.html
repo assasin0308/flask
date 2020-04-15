@@ -1,0 +1,7 @@
+{% extends  'parent.html' %}
+<!--重写 parent.html 中的container内容-->
+{% block container %}
+<!--调用父模板内容-->
+{{ super() }}
+<h1 style="color: red">这是子模板中重写的内容</h1>
+{% endblock%}

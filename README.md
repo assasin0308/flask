@@ -410,7 +410,7 @@ if __name__ == '__main__':
 </html>
 ```
 
-## 7. templates 静态文件
+## 7. templates 静态文件与模板继承
 
 ```python
 from flask import Flask, render_template
@@ -424,6 +424,26 @@ app = Flask(__name__)
 # url_for('static',filename='<file_path>')
 # <img src="{{ url_for('static',filename='images/goods_pic.jpg') }}">
 
+# 模板的继承 类似于类的继承
+# 语法:
+# 1. 父模板中 定义出哪些内容在子模板中是可以被继承/重写的
+# {% block  块名 %}
+# ......
+# {% endblock %}
+# 2. 在子模板中 体现继承关系: {% extends '父模板名称' %}
+# 在子模板中 要重写的话 :
+# {% block 块名 %} .....这里会覆盖父模板内容 {% endblock %}
+# 来重写覆盖父模板中内容
+
+# 可通过 {{ super() }} 函数调用父模板中的内容
+
+@app.route('/parent')
+def index():
+    return render_template('parent.html')
+
+@app.route('/child')
+def index_child():
+    return render_template('child.html')
 
 @app.route('/img')
 def goods():
@@ -449,6 +469,37 @@ if __name__ == '__main__':
 </div>
 </body>
 </html>
+```
+
+```html
+# parent.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>parent templates</title>
+</head>
+<body>
+<h1>这是父模板 头部内容</h1>
+{% block container %}
+<h1>这是父模板 主题内容</h1>
+{% endblock %}
+<h1>这是父模板 底部内容</h1>
+
+
+</body>
+</html>
+```
+
+```html
+# child.html
+{% extends  'parent.html' %}
+<!--重写 parent.html 中的container内容-->
+{% block container %}
+<!--调用父模板内容-->
+{{ super() }}
+<h1 style="color: red">这是子模板中重写的内容</h1>
+{% endblock%}
 ```
 
 ## 8.
