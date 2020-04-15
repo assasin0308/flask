@@ -1,6 +1,6 @@
 # Flask
 
-## 1. 介绍
+## 1. introduce
 
 ```json
 flask是基于python并且依赖于Jinja2模板引擎和WSGI服务的一个微型框架.WSGI(web Server gateway Interface )web服务网关接口.
@@ -10,13 +10,13 @@ T: Template 模板层,处理与用户显示的内容
 V: View,视图层,处理与用户交互的内容
 ```
 
-## 2. 安装
+## 2. installation
 
 ```python
 pip install flask
 ```
 
-## 3. 快速开始
+## 3. soso start
 
 ```python
 from flask import Flask, url_for
@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
 ```
 
-## 4. templates 变量
+## 4. templates & variables
 
 ```python
 from flask import Flask, render_template
@@ -206,7 +206,7 @@ if __name__ == '__main__':
 </html>
 ```
 
-## 5. tempaltes 过滤器
+## 5. tempaltes & filter
 
 ```html
 # 过滤器 允许在变量输出之前改变变量的值
@@ -225,7 +225,7 @@ if __name__ == '__main__':
 <h3>title: {{book_info.uname|title}}</h3>
 ```
 
-## 6. templates 流程控制
+## 6. templates & if & for
 
 ```python
 #demo.py
@@ -410,7 +410,7 @@ if __name__ == '__main__':
 </html>
 ```
 
-## 7. templates 静态文件与模板继承
+## 7. templates static & block & extends
 
 ```python
 from flask import Flask, render_template
