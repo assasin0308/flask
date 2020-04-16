@@ -504,19 +504,26 @@ if __name__ == '__main__':
 
 ## 8. 404 page
 
-```
+```python
+#  自定义404错误页面 @app.errorhandler(404)
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'),404 #返回状态码 否则就会200
 
+@app.errorhandler(500)
+def inter_err(e):
+    return render_template('500.html'),500
 ```
 
 ## 9.
 
-```
+```python
 
 ```
 
 ## 10.
 
-```
+```python
 
 ```
 
@@ -564,19 +571,19 @@ if __name__ == '__main__':
 
 ## 18.
 
-```
+```python
 
 ```
 
 ## 19.
 
-```
+```python
 
 ```
 
 ## 20.
 
-```
+```python
 
 ```
 
@@ -624,19 +631,79 @@ if __name__ == '__main__':
 
 ## 28.
 
-```
+```python
 
 ```
 
 ## 29.
 
-```
+```python
 
 ```
 
 ## 30.
 
+```python
+
 ```
+
+## 31.
+
+```json
+
+```
+
+## 32. 
+
+```python
+
+```
+
+## 33. 
+
+```python
+
+```
+
+## 34.
+
+```python
+
+```
+
+## 35.
+
+```python
+
+```
+
+## 36.
+
+```python
+
+```
+
+## 37.
+
+```python
+
+```
+
+## 38.
+
+```python
+
+```
+
+## 39.
+
+```python
+
+```
+
+## 40.
+
+```python
 
 ```
 
