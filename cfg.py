@@ -2,8 +2,8 @@ from flask import Flask, render_template
 
 
 # template_folder 配置自定义模板文件目录
-# static_url_path 配置自定义静态文件访问路径
-# static_folder 配置自定义静态文件目录
+# static_url_path 配置自定义静态文件访问路径 映射到web中的访问路径
+# static_folder 配置自定义静态文件目录  映射到项目中的目录名称
 app = Flask(
             __name__,
             template_folder='muban',
