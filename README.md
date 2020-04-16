@@ -508,7 +508,7 @@ if __name__ == '__main__':
 #  自定义404错误页面 @app.errorhandler(404)
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'),404 #返回状态码 否则就会200
+    return render_template('404.html'),404 # 返回状态码 否则就会200
 
 @app.errorhandler(500)
 def inter_err(e):
