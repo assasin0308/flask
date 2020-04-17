@@ -543,6 +543,8 @@ if __name__ == '__main__':
 ## 10. request 
 
 ```python
+# from flask import request
+
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -662,9 +664,11 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5004,debug=True)
 ```
 
-## 11. response
+## 11. response & upload file
 
-```json
+```python
+# from flask import make_response
+
 
 ```
 
@@ -724,7 +728,7 @@ if __name__ == '__main__':
 
 ## 21.
 
-```json
+```python
 
 ```
 
@@ -784,7 +788,7 @@ if __name__ == '__main__':
 
 ## 31.
 
-```json
+```python
 
 ```
 
