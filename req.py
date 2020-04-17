@@ -79,22 +79,39 @@ def form_do():
 
 #-----------POST Method-----------------------
 
-@app.route('/post')
-def post_form():
-    return render_template('post_form.html')
+# @app.route('/post')
+# def post_form():
+#     return render_template('post_form.html')
+#
+# @app.route('/post_form',methods=['POST'])
+# def post_do():
+#     if request.method == 'POST':
+#         uname = request.form.get('uname')
+#         upwd = request.form.get('upwd')
+#         email = request.form.get('email')
+#         print("用户名:%s,密码:%s,邮件:%s"%(uname,upwd,email))
+#     else:
+#         return 'Request Method Not Allowed!'
+#     return 'POST请求数据获取success'
 
-@app.route('/post_form',methods=['POST'])
-def post_do():
-    if request.method == 'POST':
+#-----------update ----------------------------------
+# POST GET 合二为一
+@app.route('/post',methods=['GET','POST'])
+def post_form():
+    if request.method == 'GET':
+        # 展示表单
+        return render_template('post_form.html')
+    elif request.method == 'POST':
+        # 处理表单数据
         uname = request.form.get('uname')
         upwd = request.form.get('upwd')
         email = request.form.get('email')
-        print("用户名:%s,密码:%s,邮件:%s"%(uname,upwd,email))
-    else:
-        return 'Request Method Not Allowed!'
+        print("用户名:%s,密码:%s,邮件:%s" % (uname, upwd, email))
+
     return 'POST请求数据获取success'
 
-#-----------update ----------------------------------
+
+
 
 
 

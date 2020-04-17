@@ -584,9 +584,7 @@ def request_views():
     method = request.method  # GET
     # 获取使用GET请求方式提交的数据
     args = request.args
-    # 获取使用POST请求方式提交的数据 字典
-    # request.args['name]
-    # request.args.get('name')
+    # 获取使用POST请求方式提交的数据
     form = request.form
     # 获取使用POST请求方式提交的数据
     values = request.values
@@ -608,6 +606,57 @@ def request_views():
     cookies = request.cookies
 
     return render_template('request.html',params=locals())
+
+#---------------GET Methos-------------------
+@app.route('/form')
+def form_views():
+    return render_template('form.html')
+
+@app.route('/form_do')
+def form_do():
+    if request.method == 'GET':
+        #获取form表单提交的数据
+        uname = request.args.get('uname')
+        upwd = request.args.get('upwd')
+        print('用户名称: %s,用户密码: %s'%(uname,upwd))
+
+    return '获取表单数据success'
+
+#-----------POST Method-----------------------
+
+# @app.route('/post')
+# def post_form():
+#     return render_template('post_form.html')
+#
+# @app.route('/post_form',methods=['POST'])
+# def post_do():
+#     if request.method == 'POST':
+#         uname = request.form.get('uname')
+#         upwd = request.form.get('upwd')
+#         email = request.form.get('email')
+#         print("用户名:%s,密码:%s,邮件:%s"%(uname,upwd,email))
+#     else:
+#         return 'Request Method Not Allowed!'
+#     return 'POST请求数据获取success'
+
+#-----------update ----------------------------------
+# POST GET 合二为一
+@app.route('/post',methods=['GET','POST'])
+def post_form():
+    if request.method == 'GET':
+        # 展示表单
+        return render_template('post_form.html')
+    elif request.method == 'POST':
+        # 处理表单数据
+        uname = request.form.get('uname')
+        upwd = request.form.get('upwd')
+        email = request.form.get('email')
+        print("用户名:%s,密码:%s,邮件:%s" % (uname, upwd, email))
+
+    return 'POST请求数据获取success'
+
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5004,debug=True)
