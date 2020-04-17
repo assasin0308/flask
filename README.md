@@ -584,7 +584,9 @@ def request_views():
     method = request.method  # GET
     # 获取使用GET请求方式提交的数据
     args = request.args
-    # 获取使用POST请求方式提交的数据
+    # 获取使用POST请求方式提交的数据 字典
+    # request.args['name]
+    # request.args.get('name')
     form = request.form
     # 获取使用POST请求方式提交的数据
     values = request.values
