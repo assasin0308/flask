@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flask-request</title>
+</head>
+<body>
+    <h3>scheme: {{ params.scheme }}</h3>
+    <h3>method: {{ params.method }}</h3>
+    <h3>GET: {{ params.args }}</h3>
+    <h3>POST: {{ params.form }}</h3>
+    <h3>GET/POST: {{ params.values }}</h3>
+    <h3>path: {{ params.path }}</h3>
+    <h3>full_path: {{ params.full_path }}</h3>
+    <h3>url: {{ params.url }}</h3>
+    <h3>headers: {{ params.headers }}</h3>
+    <h3>user_agent: {{ params.user_agent }}</h3>
+    <h3>referer: {{ params.referer }}</h3>
+    <h3>files: {{ params.files }}</h3>
+    <h3>cookies: {{ params.cookies }}</h3>
+</body>
+</html>
