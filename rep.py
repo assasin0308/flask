@@ -3,6 +3,8 @@ from flask import render_template
 from flask import request
 from flask import make_response
 from flask import redirect
+import time
+
 
 app = Flask(__name__)
 
@@ -48,13 +50,16 @@ def file_view():
         return render_template('file_upload.html')
     else:
         # 服务器端接收上传文件
-        file_info = request.files.get('uimg')
+        file = request.files.get('uimg')
         # file_info = request.files['uimg']
-        print(file_info)
-        return 'ok'
-
-    # 3-10-9 28:00
-
+        # file.filename 获取文件名称
+        filename = file.filename;
+        # file.save(保存路径) 将文件保存至指定目录
+        # file.save('static/uploads/' + filename)
+        # # 修改文件名称 并修改文件名
+        file.save('static/uploads/' + 'assasin.png')
+        # print(filename)
+        return 'uploads ok'
 
 
 if __name__ == '__main__':
