@@ -764,7 +764,7 @@ pymysql.install_as_MySQLdb()
 app = Flask(__name__)
 # 链接数据库格式 可省略端口号
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:uswepwd@host:port/dbname'
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:19920308shibin@127.0.0.1/flask_study"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:123456@127.0.0.1/flask_study"
 # SQLALChemy自动追踪程序修改 SQLALCHEMY_TRACK_MODIFICATIONS = true 但会占用内存空间
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # sql执行后自动提交 sb.session.commit()
