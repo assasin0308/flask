@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>all_users</title>
+    <style>
+        th {
+            width: 120px;
+            height: 10px;
+            color: black;
+            text-align: center;
+        }
+        td {
+            color: brown;
+            font-family: "Times New Roman";
+        }
+
+    </style>
+</head>
+<body>
+<table border="1px solid black" >
+    <thead>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>邮件</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for u in params.users %}
+        <tr>
+            <td>
+                <a href="/query_by_id/{{ u.id }}">
+                    {{ u.username }}
+                </a>
+            </td>
+            <td>{{ u.age }}</td>
+            <td>{{ u.email }}</td>
+            <td>
+                <a href="/query_one?id={{ u.id }}">edit</a>
+                <a href="#">delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+</body>
+</html>
