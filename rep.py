@@ -3,8 +3,8 @@ from flask import render_template
 from flask import request
 from flask import make_response
 from flask import redirect
-import time
-
+import time,datetime
+import os
 
 app = Flask(__name__)
 
@@ -53,12 +53,21 @@ def file_view():
         file = request.files.get('uimg')
         # file_info = request.files['uimg']
         # file.filename 获取文件名称
-        filename = file.filename;
+        filename = file.filename
         # file.save(保存路径) 将文件保存至指定目录
         # file.save('static/uploads/' + filename)
-        # # 修改文件名称 并修改文件名
-        file.save('static/uploads/' + 'assasin.png')
-        # print(filename)
+        #  修改文件名称 并修改文件名
+        # 获取后缀
+        ext = file.filename.split('.')[1]
+        # file.save('static/uploads/' + 'assasin.png')
+        # ftime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S:%f')
+        ftime = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
+        filename = ftime  + '.' + ext
+        # 绝对路径
+        base_dir = os.path.dirname(__file__)
+        upload_path = os.path.join(base_dir,'static/uploads/',filename)
+        file.save(upload_path)
+        print(filename)
         return 'uploads ok'
 
 
