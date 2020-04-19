@@ -74,7 +74,7 @@ db.create_all()
 # 一门课程可以由多名老师教授  一对多
 # 语法实现:
 # 1. 外键列明 = db.Column(db.Integer,db.ForeignKey('主表.主键'))
-# 2. 属性名称 = db.relationship()
+# 2. 属性名称 = db.relationship('多的实体类名',backref='属性名')
 
 
 if __name__ == '__main__':
