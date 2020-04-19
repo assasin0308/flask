@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>show_teachers</title>
+</head>
+<body>
+<table border="1px solid">
+    <thead>
+        <th>老师姓名</th>
+        <th>老师年龄</th>
+        <th>所教课程</th>
+    </thead>
+    <tbody>
+    {% for teacher in params.teachers %}
+        <tr>
+            <td>{{ teacher.tname }}</td>
+            <td>{{ teacher.tage }}</td>
+            <td>{{ teacher.course.cname }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
