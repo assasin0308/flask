@@ -119,9 +119,6 @@ def insert_views():
     # group_by() 分组函数
     # db.session.query(Users).group_by('age').all()
 
-
-
-
 @app.route('/query')
 def query_views():
     # print(db.session.query(Users,Course))
@@ -158,10 +155,13 @@ def query_views():
     # 二级排序
     # users = db.session.query(Users).order_by(Users.username.asc(),Users.id.desc()).all()
     # 分组
-    users = db.session.query(Users).group_by('age').all()
+    # users = db.session.query(Users).group_by('age').all()
+    # models 查询 id > 3的所有数据
+    users = Users.query.filter(Users.id > 3).all()
     print(users)
     return 'Query success'
-#  2. 或 Models 进行查询
+#  2. 或 Models 进行查询 Models.query.查询过滤器(条件参数).查询执行函数
+    # id > 3 的所有数据
 
 @app.route('/query_all')
 def query_all():
@@ -181,6 +181,66 @@ def query_one():
     user = db.session.query(Users).filter_by(id = id).first()
     return render_template('user_detail.html',params=locals())
 # --------------------------------------------------------------------
+# FLASK_SQLALCHEMY 删除与修改
+    # 删除 delete  先查询后删除
+    #  users = db.session.query(Users).filter_by(id=5).first
+    #  db.session.delete(Users)
+
+@app.route('/delete_user')
+def delete_view():
+    user = Users.query.filter_by(id=3).first()
+    db.session.delete(user)
+    return 'Delete success'
+
+@app.route('/delete')
+def delete():
+    user_id = request.args.get('id')
+    user = Users.query.filter_by(id=user_id).first()
+    db.session.delete(user)
+
+    url = request.headers.get('referer','/query_all')
+    return redirect(url)
+
+# 修改 update id= 1 的数据 username改为英文 age改为 50
+    # 1 查
+    # user = Users.query.fulter_by(id=1).first
+    # 2 改
+    # user.username = 'shibin1'
+    # user.age = 50
+    # 3 保存
+    # db.session.add(user)
+
+@app.route('/update_user')
+def update_user():
+    user = Users.query.filter_by(id = 1).first()
+    user.username = 'shibin1'
+    user.age = 50
+    db.session.add(user)
+
+    return 'Update success'
+
+@app.route('/update',methods=['GET','POST'])
+def update():
+    if request.method == 'GET':
+        user_id = request.args.get('id')
+        user = Users.query.filter_by(id = user_id).first()
+        return render_template('user_detail_info.html',params = locals())
+    else:
+        user_id = request.form.get('user_id')
+        username = request.form.get('username')
+        age = request.form.get('age')
+        email = request.form.get('email')
+        # 查
+        user = Users.query.filter_by(id = user_id).first()
+        # 改
+        user.username = username
+        user.age = age
+        user.email = email
+        # 保存
+        db.session.add(user)
+
+        return redirect('/query_all')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5005,debug=True)

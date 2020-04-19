@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user_detail_info</title>
+</head>
+<body>
+<form action="/update" method="post">
+    <input type="hidden" name="user_id" value="{{ params.user.id }}">
+    <p>
+        姓名: <input type="text" name="username" value="{{ params.user.username }}">
+    </p>
+    <p>
+        年龄: <input type="number" name="age" value="{{ params.user.age }}">
+    </p>
+    <p>
+        年龄: <input type="email" name="email" value="{{ params.user.email }}">
+    </p>
+    <button type="submit"> edit </button>
+</form>
+</body>
+</html>

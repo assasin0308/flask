@@ -38,13 +38,21 @@
             <td>{{ u.age }}</td>
             <td>{{ u.email }}</td>
             <td>
-                <a href="/query_one?id={{ u.id }}">edit</a>
-                <a href="#">delete</a>
+                <a href="/update?id={{ u.id }}">edit</a>
+                <a href="javascript: delete_user({{ u.id }});">delete</a>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 
 </table>
+<script>
+    function delete_user(user_id){
+        if(confirm('确认删除?')){
+            // true
+            location.href = '/delete?id=' + user_id;
+        }
+    }
+</script>
 </body>
 </html>
